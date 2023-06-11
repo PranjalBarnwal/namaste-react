@@ -7,10 +7,11 @@ export const Body = () => {
 
   function filterData(restaurantData, inputText) {
     const data = restaurantData.filter((restaurant) => {
-      restaurant.data.name.includes(inputText);
+      return restaurant.data.name.includes(inputText);
     });
     return data;
   }
+  
   const setInputHandler = (e) => {
     setInputText(e.target.value);
   };
@@ -27,6 +28,7 @@ export const Body = () => {
       />
       <button
         onClick={() => {
+          setRestaurantData(restaurantList)
           const data = filterData(restaurantData, inputText);
           setRestaurantData(data);
           console.log(data);
