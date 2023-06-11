@@ -28,11 +28,11 @@ export const Body = () => {
       />
       <button
         onClick={() => {
-          setRestaurantData(restaurantList)
-          const data = filterData(restaurantData, inputText);
-          setRestaurantData(data);
-          console.log(data);
-          setInputText("");
+            setRestaurantData(restaurantList)
+            const data = filterData(restaurantData, inputText);
+            setRestaurantData(data);
+            console.log(data);
+            setInputText("");
         }}
       >
         Search

@@ -1,5 +1,5 @@
 .container{
-    border: 2px solid red;
+    border: 2px solid rgb(3, 40, 23);
     display: flex;
     justify-content: space-between;
 }
