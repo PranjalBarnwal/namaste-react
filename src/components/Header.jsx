@@ -1,8 +1,8 @@
 import React,{useState} from 'react';
-
+import { Link } from 'react-router-dom';
 
 export const Header = () => {
-    
+    const [isLogged,setIsLogged]=useState(false)
     return (
   <>
       <div className="container">
@@ -10,12 +10,19 @@ export const Header = () => {
   
         <div className="nav-items">
           <ul>
-            <li>Home</li>
-            <li>About</li>
-            <li>Contact</li>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+            <li>
+              <Link to="/contact">Contact</Link>
+            </li>
             <li>Cart</li>
           </ul>
         </div>
+        {isLogged?(<button onClick={()=>{setIsLogged(!isLogged)}}>Log Out</button>):(<button onClick={()=>{setIsLogged(!isLogged)}}>Log In</button>)}
       </div>
  
   </>

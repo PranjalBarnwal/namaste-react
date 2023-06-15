@@ -1,0 +1,54 @@
+.shimmerCard {
+  padding: 10px;
+  width: 200px;
+  border: 1px solid black;
+  margin: 3px;
+  height: 240px;
+  overflow-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  animation: animate infinite alternate 0.75s;
+}
+
+.shimmerImg {
+  width: 200px;
+  height: 100px;
+  background-color: antiquewhite;
+}
+.shimmerh2 {
+  margin-top: 5px;
+  background-color: rgb(234, 226, 216);
+  width: 200px;
+  height: 15px;
+}
+.shimmerh3 {
+  margin-top: 5px;
+  background-color: rgb(234, 226, 216);
+  width: 200px;
+  height: 15px;
+}
+.shimmerh4 {
+  margin-top: 5px;
+  background-color: rgb(234, 226, 216);
+  width: 200px;
+  height: 15px;
+}
+
+@keyframes animate {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 1;
+  }
+}

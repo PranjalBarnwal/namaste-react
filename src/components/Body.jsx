@@ -1,21 +1,45 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 import { restaurantList } from "./config";
 import { Card } from "./Card";
+import RestaurantMenu from "./RestaurantMenu";
+
 export const Body = () => {
   const [inputText, setInputText] = useState("");
+  const [restaurantData, setRestaurantData] = useState("");
+  const [filteredData, setFilteredData] = useState("");
+
+  useEffect(() => {
+    getRestaurant();
+  }, []);
+
+  async function getRestaurant() {
+    try {
+      const data = await fetch(
+        "https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=21.1702401&lng=72.83106070000001&page_type=DESKTOP_WEB_LISTING"
+ );
+      const json = await data.json();
+      setRestaurantData(json.data.cards[2].data.data.cards);
+      setFilteredData(json.data.cards[2].data.data.cards);
+      console.log(json.data.cards[2].data.data.cards);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   function filterData(restaurantData, inputText) {
     const data = restaurantData.filter((restaurant) => {
-      return restaurant.data.name.includes(inputText);
+      return restaurant.data.name
+        .toLowerCase()
+        .includes(inputText.toLowerCase());
     });
     return data;
   }
-  
+
   const setInputHandler = (e) => {
     setInputText(e.target.value);
   };
-  const [restaurantData, setRestaurantData] = useState(restaurantList);
 
   return (
     <>
@@ -28,20 +52,33 @@ export const Body = () => {
       />
       <button
         onClick={() => {
-            setRestaurantData(restaurantList)
-            const data = filterData(restaurantData, inputText);
-            setRestaurantData(data);
-            console.log(data);
-            setInputText("");
+          const data = filterData(restaurantData, inputText);
+          setFilteredData(data);
+
+          setInputText("");
         }}
       >
         Search
       </button>
-      <div className="body">
-        {restaurantData.map((restaurant) => {
-          return <Card {...restaurant.data} key={restaurant.data.id} />;
-        })}
-      </div>
+
+      {restaurantData.length !== 0 ? (
+        <div className="body">
+          {filteredData.length !== 0 ? (
+            filteredData.map((restaurant) => (
+              <Link to={"/restaurantMenu/"+restaurant.data.id} key={restaurant.data.id}><div >
+              <Card {...restaurant.data} />
+              </div>
+              </Link>
+            ))
+          ) : (
+            <h2>No Restaurant Found</h2>
+          )}
+        </div>
+      ) : (
+        <div className="shimmerContainer">
+             { Array(20).fill("").map((e,index) =>  <div key={index}> <Shimmer /></div>)}         
+        </div>
+      )}
     </>
   );
 };
