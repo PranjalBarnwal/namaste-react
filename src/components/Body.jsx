@@ -17,12 +17,12 @@ export const Body = () => {
   async function getRestaurant() {
     try {
       const data = await fetch(
-        "https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=21.1702401&lng=72.83106070000001&page_type=DESKTOP_WEB_LISTING"
+        "https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.0759837&lng=72.8776559&page_type=DESKTOP_WEB_LISTING"
  );
       const json = await data.json();
-      setRestaurantData(json.data.cards[2].data.data.cards);
-      setFilteredData(json.data.cards[2].data.data.cards);
-      console.log(json.data.cards[2].data.data.cards);
+      setRestaurantData(json?.data?.cards[2]?.data?.data?.cards);
+      setFilteredData(json?.data?.cards[2]?.data?.data?.cards);
+      console.log(json?.data?.cards[2]?.data?.data?.cards);
     } catch (error) {
       console.log(error);
     }
@@ -61,7 +61,7 @@ export const Body = () => {
         Search
       </button>
 
-      {restaurantData.length !== 0 ? (
+      {restaurantData&&restaurantData.length !== 0 ? (
         <div className="body">
           {filteredData.length !== 0 ? (
             filteredData.map((restaurant) => (

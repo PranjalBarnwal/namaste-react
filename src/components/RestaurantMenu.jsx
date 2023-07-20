@@ -18,11 +18,13 @@ const RestaurantMenu = () => {
         resId
     );
     const json = await data.json();
-    console.log(json);
+    // console.log(json);
     const { name, cloudinaryImageId, avgRatingString, costForTwoMessage } =
       json.data?.cards[0]?.card?.card?.info;
 
-    console.log(json.data?.cards[0]?.card?.card?.info);
+    // console.log(json.data?.cards[0]?.card?.card?.info);
+    const menu=json.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.map((menuItems,index)=> index&&menuItems?.card?.card?.itemCards);
+    console.log(menu);
     const menuData=json.data?.cards[0]?.card?.card?.info;
     // const menuDataArr=Object.keys(menuDataObj)
     setResName(name);
@@ -34,7 +36,8 @@ const RestaurantMenu = () => {
   }
 
   return (!resName)?<div className="shimmerContainer">
-  { Array(20).fill("").map((e,index) =>  <div key={index}> <Shimmer /></div>)}       //what is the use of e , is it for api data fetching??!!!  
+  { Array(20).fill("").map((e,index) =>  <div key={index}> <Shimmer /></div>)}      
+  {/* what is the use of e , is it for api data fetching??!!!   */}
 </div>:(
     <div>
       <h1>{resName}</h1>
