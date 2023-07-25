@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { restaurantList } from "./config";
 import { Card } from "./Card";
 import RestaurantMenu from "./RestaurantMenu";
+import useOnline from "./../utils/useOnline"
 
 export const Body = () => {
   const [inputText, setInputText] = useState("");
@@ -22,7 +23,7 @@ export const Body = () => {
       const json = await data.json();
       setRestaurantData(json?.data?.cards[2]?.data?.data?.cards);
       setFilteredData(json?.data?.cards[2]?.data?.data?.cards);
-      console.log(json?.data?.cards[2]?.data?.data?.cards);
+      // console.log(json?.data?.cards[2]?.data?.data?.cards);
     } catch (error) {
       console.log(error);
     }
@@ -41,6 +42,10 @@ export const Body = () => {
     setInputText(e.target.value);
   };
 
+  //checking if user's internet is active
+  const isOnline=useOnline();
+  if(!isOnline) return <h1>Please check your internet connection</h1>
+ 
   return (
     <>
       <input

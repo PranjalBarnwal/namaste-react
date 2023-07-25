@@ -8,31 +8,34 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  animation: animate infinite alternate 0.75s;
 }
 
 .shimmerImg {
   width: 200px;
   height: 100px;
   background-color: antiquewhite;
+  animation: animate infinite alternate 0.75s;
 }
 .shimmerh2 {
   margin-top: 5px;
   background-color: rgb(234, 226, 216);
   width: 200px;
   height: 15px;
+  animation: animate infinite alternate 0.75s;
 }
 .shimmerh3 {
   margin-top: 5px;
   background-color: rgb(234, 226, 216);
   width: 200px;
   height: 15px;
+  animation: animate infinite alternate 0.75s;
 }
 .shimmerh4 {
   margin-top: 5px;
   background-color: rgb(234, 226, 216);
   width: 200px;
   height: 15px;
+  animation: animate infinite alternate 0.75s;
 }
 
 @keyframes animate {
