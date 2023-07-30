@@ -38,7 +38,7 @@
   animation: animate infinite alternate 0.75s;
 }
 
-@keyframes animate {
+/* @keyframes animate {
   0% {
     opacity: 0;
   }
@@ -54,4 +54,4 @@
   100% {
     opacity: 1;
   }
-}
+} */

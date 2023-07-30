@@ -7,10 +7,10 @@ import { Body } from "./components/Body";
 import Error from "./components/Error";
 import About from "./components/About";
 import Contact from "./components/Contact";
-import { Footer } from "./components/Footer";
+import  Footer  from "./components/Footer";
 import { Outlet, createBrowserRouter } from "react-router-dom";
 import RestaurantMenu2 from "./components/RestaurantMenu2";
-
+import UserContext from "./utils/UserContext";
 //lazy loading
 const Instamart = lazy(() => import("./components/Instamart"));
 //react suspends the loading upon on demand render
@@ -26,12 +26,17 @@ const App = () => {
 export default App;
 
 const AppLayout = () => {
+  const [user, setUser] = useState({
+    name: "Robin Singh",
+    email: "44robin.rs@gmail.com",
+  });
   return (
-    <>
+    <UserContext.Provider value={{user:user,setUser:setUser}}>
       <Header />
       <Outlet />
       <Footer />
-    </>
+    </UserContext.Provider>
+  
   );
 };
 

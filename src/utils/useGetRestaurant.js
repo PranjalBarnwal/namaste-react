@@ -10,7 +10,7 @@ const useGetRestaurant = (resId) => {
   }, []);
   async function getRestaurantMenu() {
     const data = await fetch(
-      "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=25.593192&lng=85.1851427&restaurantId=" +
+      "https://corsproxy.io/?https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=25.593192&lng=85.1851427&restaurantId=" +
         resId
     );
     const json = await data.json();

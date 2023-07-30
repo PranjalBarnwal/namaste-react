@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import { restaurantList } from "./config";
 import { Card } from "./Card";
 import RestaurantMenu from "./RestaurantMenu";
-import useOnline from "./../utils/useOnline"
-
+import useOnline from "./../utils/useOnline";
+import UserContext from "../utils/UserContext";
 export const Body = () => {
+  const { user, setUser } = useContext(UserContext);
   const [inputText, setInputText] = useState("");
   const [restaurantData, setRestaurantData] = useState("");
   const [filteredData, setFilteredData] = useState("");
@@ -19,11 +20,15 @@ export const Body = () => {
     try {
       const data = await fetch(
         "https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.0759837&lng=72.8776559&page_type=DESKTOP_WEB_LISTING"
- );
+      );
       const json = await data.json();
-      setRestaurantData(json?.data?.cards[2]?.data?.data?.cards);
-      setFilteredData(json?.data?.cards[2]?.data?.data?.cards);
-      // console.log(json?.data?.cards[2]?.data?.data?.cards);
+
+      const restaurant_data_array =
+        json.data.cards[2].card.card.gridElements.infoWithStyle.restaurants;
+
+      console.log(restaurant_data_array);
+      setRestaurantData(restaurant_data_array);
+      setFilteredData(restaurant_data_array);
     } catch (error) {
       console.log(error);
     }
@@ -31,7 +36,7 @@ export const Body = () => {
 
   function filterData(restaurantData, inputText) {
     const data = restaurantData.filter((restaurant) => {
-      return restaurant.data.name
+      return restaurant.info.name
         .toLowerCase()
         .includes(inputText.toLowerCase());
     });
@@ -43,9 +48,9 @@ export const Body = () => {
   };
 
   //checking if user's internet is active
-  const isOnline=useOnline();
-  if(!isOnline) return <h1>Please check your internet connection</h1>
- 
+  const isOnline = useOnline();
+  if (!isOnline) return <h1>Please check your internet connection</h1>;
+
   return (
     <>
       <input
@@ -66,13 +71,29 @@ export const Body = () => {
         Search
       </button>
 
-      {restaurantData&&restaurantData.length !== 0 ? (
+      <input
+        type="text"
+        name=""
+        value={user.name}
+        onChange={(e) => {
+          setUser({
+            name: e.target.value,
+            email: "newEmail@gmail.com  ",
+          });
+        }}
+      />
+
+      {restaurantData && restaurantData.length !== 0 ? (
         <div className="body">
           {filteredData.length !== 0 ? (
             filteredData.map((restaurant) => (
-              <Link to={"/restaurantMenu/"+restaurant.data.id} key={restaurant.data.id}><div >
-              <Card {...restaurant.data} />
-              </div>
+              <Link
+                to={"/restaurantMenu/" + restaurant.info.id}
+                key={restaurant.info.id}
+              >
+                <div>
+                  <Card {...restaurant.info} />
+                </div>
               </Link>
             ))
           ) : (
@@ -81,7 +102,14 @@ export const Body = () => {
         </div>
       ) : (
         <div className="shimmerContainer">
-             { Array(20).fill("").map((e,index) =>  <div key={index}> <Shimmer /></div>)}         
+          {Array(20)
+            .fill("")
+            .map((e, index) => (
+              <div key={index}>
+                {" "}
+                <Shimmer />
+              </div>
+            ))}
         </div>
       )}
     </>
