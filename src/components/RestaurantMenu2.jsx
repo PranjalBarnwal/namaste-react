@@ -6,7 +6,7 @@ import useGetRestaurant from "../utils/useGetRestaurant";
 const RestaurantMenu = () => {
   const { resId } = useParams();
 
-  const restaurant = useGetRestaurant(resId);
+  const {restaurant,menuList} = useGetRestaurant(resId);
 
   return !restaurant ? (
     <div className="shimmerContainer">
@@ -30,6 +30,7 @@ const RestaurantMenu = () => {
         src={`https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/${restaurant?.cloudinaryImageId}`}
         alt=""
       />
+       <ul> {menuList&&menuList.map((item,index)=>{return <li key={index}>{item.card.info.name}</li>})}</ul>
     </div>
   );
 };
