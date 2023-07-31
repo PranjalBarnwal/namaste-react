@@ -2,11 +2,19 @@ import React, { useState,useContext } from "react";
 import { Link } from "react-router-dom";
 import useOnline from "../utils/useOnline";
 import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux/es/hooks/useSelector";
+import store from "../utils/store";
+
 
 export const Header = () => {
   const {user}=useContext(UserContext);
   const [isLogged, setIsLogged] = useState(false);
   const isOnline = useOnline();
+  const cartItems=useSelector(store=>store.cart.items);
+console.log(cartItems);
+
+
+
   return (
     <>
       <div className="container">
@@ -23,10 +31,10 @@ export const Header = () => {
             <li>
               <Link to="/contact">Contact</Link>
             </li>
-            <li>Cart</li>
             <li>
               <Link to="/instamart">Instamart</Link>
             </li>
+            <li>Cart-{cartItems.length}</li>
             <li>{isOnline ? "✅" : "❌"}</li>
           </ul>
         </div>

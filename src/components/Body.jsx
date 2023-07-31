@@ -24,7 +24,7 @@ export const Body = () => {
       const json = await data.json();
 
       const restaurant_data_array =
-        json.data.cards[2].card.card.gridElements.infoWithStyle.restaurants;
+        json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
 
       console.log(restaurant_data_array);
       setRestaurantData(restaurant_data_array);
