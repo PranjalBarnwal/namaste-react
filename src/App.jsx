@@ -1,5 +1,6 @@
 import React, { useState, lazy, Suspense } from "react";
 import "./App.css";
+import Cart from "./components/Cart"
 import { Provider } from "react-redux";
 import { restaurantList } from "./components/config";
 import { Header } from "./components/Header";
@@ -66,6 +67,10 @@ export const appRouter = createBrowserRouter([
       {
         path: "/restaurantMenu/:resId",
         element: <RestaurantMenu2 />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
       },
     ],
   },

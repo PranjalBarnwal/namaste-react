@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import useOnline from "../utils/useOnline";
 import UserContext from "../utils/UserContext";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import store from "../utils/store";
+// import store from "../utils/store";
 
 
 export const Header = () => {
@@ -34,7 +34,10 @@ console.log(cartItems);
             <li>
               <Link to="/instamart">Instamart</Link>
             </li>
-            <li>Cart-{cartItems.length}</li>
+            <li>
+              <Link to="/cart">Cart-{cartItems.length}</Link>
+            </li>
+           
             <li>{isOnline ? "✅" : "❌"}</li>
           </ul>
         </div>
